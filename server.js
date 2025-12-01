@@ -23,13 +23,18 @@ app.post("/login", (req, res) => {
     );
 
     if (validUser) {
+        // ⭐ CHECK IF ADMIN
+        if (username === "admin" && password === "1234") {
+            return res.redirect("/admin.html");
+        }
+        // ⭐ NORMAL USER
         return res.redirect("/success.html");
     }
 
-    // send back the index page WITH an error message
+    // Invalid login → show error
     const loginPage = fs.readFileSync("./public/index.html", "utf8");
     const errorInjected = loginPage.replace(
-        "<div class=\"login-box\">",
+        '<div class="login-box">',
         `<div class="login-box">
             <p class="error">❌ Incorrect username or password</p>`
     );
