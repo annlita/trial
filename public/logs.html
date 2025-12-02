@@ -1,77 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Failed Login Logs</title>
-
+    <title>Login Logs</title>
     <style>
         body {
             background: pink;
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             text-align: center;
-            padding-top: 60px;
+            padding-top: 50px;
         }
-
         .box {
             background: white;
+            padding: 20px;
             width: 500px;
             margin: auto;
-            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 0 15px #ff69b4;
+            box-shadow: 0 0 10px hotpink;
         }
-
-        h1 {
-            color: #ff1493;
-        }
-
         pre {
             text-align: left;
-            background: #ffe4f0;
+            white-space: pre-wrap;
+            background: #ffe6f2;
             padding: 15px;
             border-radius: 10px;
-            max-height: 350px;
-            overflow-y: auto;
-            border: 1px solid #ff69b4;
-            white-space: pre-wrap;
+            height: 300px;
+            overflow-y: scroll;
         }
-
         a.button {
-            display: inline-block;
-            margin-top: 15px;
+            display: block;
+            margin: 10px auto;
+            width: 200px;
             background: hotpink;
             color: white;
-            padding: 10px 20px;
+            padding: 12px;
             border-radius: 10px;
             text-decoration: none;
-            font-size: 16px;
         }
-
         a.button:hover {
             background: #ff1493;
         }
     </style>
 </head>
-
 <body>
+
     <div class="box">
-        <h1>📄 Failed Login Logs</h1>
+        <h2>📜 Failed Login Attempts</h2>
 
-        <pre id="logArea">Loading logs...</pre>
+        <pre id="logBox">Loading logs...</pre>
 
-        <a class="button" href="/admin.html">⬅ Back to Admin Page</a>
+        <a class="button" href="/admin.html">⬅ Back to Admin</a>
     </div>
 
     <script>
-        // Fetch logs from the server
         fetch("/get-logs")
             .then(res => res.text())
             .then(data => {
-                document.getElementById("logArea").textContent = data || "No logs yet 💗";
-            })
-            .catch(() => {
-                document.getElementById("logArea").textContent = "Error loading logs.";
+                document.getElementById("logBox").textContent = data;
             });
     </script>
+
 </body>
 </html>

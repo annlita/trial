@@ -15,8 +15,10 @@ function loadUsers() {
 
 const users = loadUsers();
 
-// Ensure the log file exists
+// Correct log file path
 const logFile = path.join(__dirname, "login_logs.txt");
+
+// Ensure file exists
 if (!fs.existsSync(logFile)) {
     fs.writeFileSync(logFile, "");
 }
@@ -29,45 +31,41 @@ app.post("/login", (req, res) => {
     );
 
     if (validUser) {
-
-        // If ADMIN → go to admin page
+        // Admin login
         if (username === "admin" && password === "1234") {
             return res.redirect("/admin.html");
         }
-
-        // normal user
+        // Regular user
         return res.redirect("/success.html");
     }
 
-    // Log failed login
+    // Log failed login attempt
     const entry = `FAILED LOGIN | User: ${username} | Time: ${new Date().toISOString()}\n`;
     fs.appendFileSync(logFile, entry);
 
     // Return index.html with error message
     const loginPage = fs.readFileSync("./public/index.html", "utf8");
     const errorInjected = loginPage.replace(
-        "<div class=\"login-box\">",
+        `<div class="login-box">`,
         `<div class="login-box">
             <p class="error">❌ Incorrect username or password</p>`
     );
+
     res.send(errorInjected);
 });
 
-
-// ⭐ FIX: Add GET route for logs
+// Route for logs.html
 app.get("/logs", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "logs.html"));
 });
 
+// Return the contents of login_logs.txt
 app.get("/get-logs", (req, res) => {
-    const logPath = path.join(__dirname, "failed_logs.txt");
-    if (!fs.existsSync(logPath)) return res.send("No logs yet.");
-    
-    const logs = fs.readFileSync(logPath, "utf8");
+    if (!fs.existsSync(logFile)) return res.send("No logs yet.");
+
+    const logs = fs.readFileSync(logFile, "utf8");
     res.send(logs);
 });
-
-
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
