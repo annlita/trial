@@ -4,37 +4,41 @@
     <title>Admin Panel</title>
     <style>
         body {
-            background: black;
-            color: white;
+            background: #ffe6f2;
             text-align: center;
-            padding-top: 100px;
             font-family: Arial;
+            padding-top: 80px;
         }
         .box {
-            background: #222;
-            padding: 20px;
+            background: white;
             width: 350px;
             margin: auto;
+            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 0 10px red;
+            box-shadow: 0 0 10px pink;
         }
         a {
-            display: inline-block;
-            margin-top: 15px;
-            background: red;
-            padding: 10px 20px;
+            display: block;
+            margin: 15px;
+            padding: 12px;
+            background: hotpink;
             color: white;
-            border-radius: 10px;
             text-decoration: none;
+            border-radius: 10px;
+        }
+        a:hover {
+            background: #ff1493;
         }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>Welcome Admin 🔥</h1>
-        <p>You have admin access.</p>
 
-        <a href="/index.html">Logout</a>
+    <div class="box">
+        <h1>Welcome Admin 👑</h1>
+
+        <a href="/logs">📄 View Login Logs</a>
+        <a href="/index.html">⬅ Back to Login</a>
     </div>
+
 </body>
 </html>

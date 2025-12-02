@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Failed Login Logs</title>
+
+    <style>
+        body {
+            background: pink;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .box {
+            background: white;
+            width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #ff69b4;
+        }
+
+        h1 {
+            color: #ff1493;
+        }
+
+        pre {
+            text-align: left;
+            background: #ffe4f0;
+            padding: 15px;
+            border-radius: 10px;
+            max-height: 350px;
+            overflow-y: auto;
+            border: 1px solid #ff69b4;
+            white-space: pre-wrap;
+        }
+
+        a.button {
+            display: inline-block;
+            margin-top: 15px;
+            background: hotpink;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a.button:hover {
+            background: #ff1493;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>📄 Failed Login Logs</h1>
+
+        <pre id="logArea">Loading logs...</pre>
+
+        <a class="button" href="/admin.html">⬅ Back to Admin Page</a>
+    </div>
+
+    <script>
+        // Fetch logs from the server
+        fetch("/get-logs")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("logArea").textContent = data || "No logs yet 💗";
+            })
+            .catch(() => {
+                document.getElementById("logArea").textContent = "Error loading logs.";
+            });
+    </script>
+</body>
+</html>
